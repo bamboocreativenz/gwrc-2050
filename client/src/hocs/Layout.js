@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import { connect } from 'redux-bundler-react'
 import navHelper from 'internal-nav-helper'
+import posthog from 'posthog-js'
+
 import OldBrowserModal from '../components/OldBrowserModal'
 import InfoModal from '../components/InfoModal'
 import ShareModal from '../components/ShareModal'
@@ -43,7 +45,12 @@ const Layout = ({
       css={{ minHeight: isCalculatorPage ? '100%' : 'auto' }}
       width={'100%'}
       bg={isCalculatorPage ? 'background' : 'white'}
-      onClick={navHelper(doUpdateUrl)}
+      onClick={navHelper(url => {
+        posthog.capture('$pageview', {
+          $current_url: url
+        })
+        doUpdateUrl(url)
+      })}
     >
       <Onboarding
         isOnboardingOpen={isCalculatorPage ? isOnboardingOpen : false}
