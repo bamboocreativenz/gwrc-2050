@@ -46,9 +46,9 @@ const Layout = ({
       width={'100%'}
       bg={isCalculatorPage ? 'background' : 'white'}
       onClick={navHelper(url => {
-        // posthog.capture('$pageview', {
-        //   $current_url: url
-        // })
+        posthog.capture('$pageview', {
+          $current_url: url
+        })
         doUpdateUrl(url)
       })}
     >
