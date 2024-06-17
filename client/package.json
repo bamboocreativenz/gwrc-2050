@@ -22,6 +22,7 @@
     "d3-sankey": "^0.7.1",
     "internal-nav-helper": "^1.0.2",
     "lodash": "^4.17.11",
+    "posthog-js": "^1.139.2",
     "prop-types": "^15.6.2",
     "react": "^16.8.1",
     "react-app-polyfill": "^0.2.2",
