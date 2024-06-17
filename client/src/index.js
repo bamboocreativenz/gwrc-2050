@@ -7,6 +7,7 @@ import ReactDOM from 'react-dom'
 import { Provider } from 'redux-bundler-react'
 import { ThemeProvider, createGlobalStyle } from 'styled-components'
 import ReactModal from 'react-modal'
+import posthog from 'posthog-js'
 
 import getStore from './bundles'
 import theme from './theme'
@@ -18,6 +19,11 @@ import interBold from './assets/fonts/Inter-UI-Bold.woff2'
 import interBlack from './assets/fonts/Inter-UI-Black.woff2'
 import interMedium from './assets/fonts/Inter-UI-Medium.woff2'
 import interRegular from './assets/fonts/Inter-UI-Regular.woff2'
+
+posthog.init(process.env.REACT_APP_POSTHOG_KEY, {
+  api_host: 'https://eu.i.posthog.com',
+  person_profiles: 'identified_only' // or 'always' to create profiles for anonymous users as well
+})
 
 const GlobalStyle = createGlobalStyle`
   &::-webkit-scrollbar {
