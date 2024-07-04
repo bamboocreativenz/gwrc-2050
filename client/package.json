@@ -29,7 +29,7 @@
     "react-dom": "^16.8.1",
     "react-icons": "^5.2.1",
     "react-modal": "^3.6.1",
-    "react-scripts": "1.1.5",
+    "react-scripts": "^2",
     "react-virtualized": "^9.20.1",
     "rebass": "^3.0.0-8",
     "redux-bundler": "^23.1.0",
@@ -44,5 +44,11 @@
     "husky": "^0.14.3",
     "lint-staged": "^7.2.2",
     "prettier-standard": "^8.0.1"
-  }
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
 }
