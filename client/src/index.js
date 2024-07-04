@@ -8,6 +8,7 @@ import { Provider } from 'redux-bundler-react'
 import { ThemeProvider, createGlobalStyle } from 'styled-components'
 import ReactModal from 'react-modal'
 import posthog from 'posthog-js'
+import { PostHogProvider } from 'posthog-js/react'
 
 import getStore from './bundles'
 import theme from './theme'
@@ -20,9 +21,13 @@ import interBlack from './assets/fonts/Inter-UI-Black.woff2'
 import interMedium from './assets/fonts/Inter-UI-Medium.woff2'
 import interRegular from './assets/fonts/Inter-UI-Regular.woff2'
 
+import { cookieConsentGiven } from './util/cookieConsent'
+
+// see https://posthog.com/tutorials/nextjs-cookie-banner
 posthog.init(process.env.REACT_APP_POSTHOG_KEY, {
   api_host: 'https://eu.i.posthog.com',
-  person_profiles: 'identified_only' // or 'always' to create profiles for anonymous users as well
+  person_profiles: 'identified_only', // or 'always' to create profiles for anonymous users as well
+  persistence: cookieConsentGiven() === 'yes' ? 'localStorage+cookie' : 'memory'
 })
 
 const GlobalStyle = createGlobalStyle`
@@ -71,10 +76,12 @@ ReactModal.setAppElement(document.getElementById('root'))
 ReactDOM.render(
   <Provider store={getStore()}>
     <ThemeProvider theme={theme}>
-      <React.Fragment>
-        <GlobalStyle />
-        <Layout />
-      </React.Fragment>
+      <PostHogProvider client={posthog}>
+        <React.Fragment>
+          <GlobalStyle />
+          <Layout />
+        </React.Fragment>
+      </PostHogProvider>
     </ThemeProvider>
   </Provider>,
   document.getElementById('root')
